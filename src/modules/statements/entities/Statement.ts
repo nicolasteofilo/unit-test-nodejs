@@ -34,7 +34,7 @@ export class Statement {
   amount: number;
 
   @Column({ type: 'enum', enum: OperationType })
-  type: OperationType;
+  type: string;
 
   @CreateDateColumn()
   created_at: Date;
