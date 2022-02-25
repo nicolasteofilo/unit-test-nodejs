@@ -7,7 +7,7 @@ import createConnection from '../../../../database'
 
 let connection: Connection;
 
-describe('Create User Controller', () => {
+describe('Authenticate User Controller', () => {
     beforeAll(async () => {
         connection = await createConnection();
         await connection.runMigrations();
@@ -18,13 +18,18 @@ describe('Create User Controller', () => {
         await connection.close();
     });
 
-    it('should be able to create a new user', async () => {
-        const response = await request(app).post('/api/v1/users').send({
+    it('should ble able to auth user with JWT Token', async () => {
+        await request(app).post('/api/v1/users').send({
             name: 'Nicolas Teófilo',
             email: 'nicolasteofilodecastro@gmail.com',
             password: '123456'
         })
 
-        expect(response.status).toBe(201);
+        const responseAuth = await request(app).post('/api/v1/sessions').send({
+            email: 'nicolasteofilodecastro@gmail.com',
+            password: '123456'
+        })
+
+        expect(responseAuth.body).toHaveProperty('token');
     })
 })
