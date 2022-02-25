@@ -1,4 +1,3 @@
-import { hash } from 'bcryptjs';
 import request from 'supertest';
 import { Connection } from 'typeorm';
 
